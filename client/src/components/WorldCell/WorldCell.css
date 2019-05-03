@@ -1,0 +1,19 @@
+.flexCard {
+    height: 20vh;
+    border-radius: 0;
+    display: flex;
+}
+
+.gridCard {
+    padding: 5px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.gridEntity {
+    grid-column: 3;
+    grid-row: 3;
+    align-self: center;
+    justify-self: center;
+}

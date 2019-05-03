@@ -1,0 +1,10 @@
+{
+    "coffee": {
+        "name": "Coffee",
+        "icon": "faCoffee"
+    },
+    "arrow": {
+        "name": "Arrow",
+        "icon": "faArrowCircleLeft"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "Home": {
+        "id": 1,
+        "name": "Home"
+    },
+    "Portal": {
+        "id": 2,
+        "name": "Portal"
+    },
+    "World": {
+        "id": 3,
+        "name": "World"
+    }
+}
