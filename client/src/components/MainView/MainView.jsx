@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card } from 'react-bootstrap';
 import { useStateValue } from "../../state";
-import Sections from '../../config/sections.json';
+import Sections from '../../config/sections';
 
 
 import './MainView.css';
@@ -12,19 +12,19 @@ export default function MainView() {
     const [{ section }] = useStateValue();
 
     switch (section) {
-        case Sections.Home.id:
+        case Sections.Home:
             return (
                 <Card className="mainView">
                     <HouseView />
                 </Card>
             )
-        case Sections.Portal.id:
+        case Sections.Portal:
             return (
                 <Card className="mainView">
-                    {Sections.Portal.name}
+                    {Sections.Portal}
                 </Card>
             )
-        case Sections.World.id:
+        case Sections.World:
             return (
                 <Card className="mainView">
                     <WorldView />

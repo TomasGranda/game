@@ -8,7 +8,7 @@ export default function Inventory(props) {
     let renderedInventory = [];
 
     for (let i = 0; i < 8; i++) {
-        renderedInventory.push(<InventoryItem key={uuid()} index={i} {...props}/>);
+        renderedInventory.push(<InventoryItem key={uuid()} menuId={uuid()} index={i} {...props}/>);
     }
 
     return (

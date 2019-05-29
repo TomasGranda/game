@@ -1,0 +1,8 @@
+export const DELETE_ITEM = "DELETE_ITEM";
+export const MOVE_PLAYER = "MOVE_PLAYER";
+export const PICKUP_ITEM = "PICKUP_ITEM";
+export const CHANGE_CLAVE = "CHANGE_CLAVE";
+export const CHANGE_SECTION = "CHANGE_SECTION";
+export const CHANGE_ITEM_LOCATION = "CHANGE_ITEM_LOCATION";
+export const DROP_ITEM = "DROP_ITEM";
+export const CREATE_BUILD = "CREATE_BUILD";
