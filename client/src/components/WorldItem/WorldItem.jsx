@@ -4,16 +4,16 @@ import * as Icons from '@fortawesome/free-solid-svg-icons';
 import './WorldItem.css';
 import { MenuProvider, Menu, theme, Item } from 'react-contexify';
 import uuid from "uuid";
-import { useStateValue } from "../../state";
+import { useStateValue } from "../StateProvider/StateProvider";
 import comparePositions from '../../utils/comparePositions';
-import * as types from '../../actionTypes'
+import * as types from '../../actions/types'
 import getPositionById from '../../utils/getPositionById';
 
 export default function WorldItem(props) {
-  const [{ playerPosition, world }, dispath] = useStateValue();
+  const [{ worldState: { playerPosition, world } }, dispath] = useStateValue();
 
   const { item } = props;
-  console.log("asd")
+
   const id = item && item.id ? item.id : uuid();
   const itemPosition = getPositionById(world, id);
 

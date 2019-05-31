@@ -3,12 +3,12 @@ import { Row, Col } from 'react-bootstrap';
 
 import './WorldView.css'
 import WorldCell from '../WorldCell/WorldCell';
-import { useStateValue } from '../../state';
+import { useStateValue } from '../StateProvider/StateProvider';
 import uuid from 'uuid';
 import getVisibleWorldByPosition from '../../utils/getVisibleWorldByPosition';
 
 export default function WorldView() {
-  const [{ world, playerPosition }] = useStateValue();
+  const [{ worldState: { world, playerPosition } }] = useStateValue();
   const relativesX = [-1,0,1,2,3];
   const relativesY = [-2,-1,0,1,2];
   let renderedWorld;

@@ -5,8 +5,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import Menu from '../Menu/Menu';
 import SideMenu from '../SideMenu/SideMenu';
 
-export default function Content({ initialState }) {
-
+export default function Content() {
   return (
     <Container>
       <Row>

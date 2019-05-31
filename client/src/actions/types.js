@@ -6,3 +6,4 @@ export const CHANGE_SECTION = "CHANGE_SECTION";
 export const CHANGE_ITEM_LOCATION = "CHANGE_ITEM_LOCATION";
 export const DROP_ITEM = "DROP_ITEM";
 export const CREATE_BUILD = "CREATE_BUILD";
+export const PUT_ITEM = "PUT_ITEM";
