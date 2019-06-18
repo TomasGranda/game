@@ -8,7 +8,7 @@ export const initialState = {
   houseItems: [{ ...Items.Coffee, id: uuid() }],
 }
 
-export const inventoryReducer = ({ inventory, worldState: { playerPosition, world } }, action) => {
+export const inventoryReducer = ({ inventory }, action) => {
   let newHouseItems, newItems, item;
   switch (action.type) {
     case types.DELETE_ITEM:
@@ -47,7 +47,13 @@ export const inventoryReducer = ({ inventory, worldState: { playerPosition, worl
     case types.CREATE_INVENTORY_ITEM:
       newItems = deepCloneArray(inventory.items);
 
-      newItems.push(action.item);
+
+      if (action.item.id) {
+        newItems.push(action.item);
+      } else {
+        newItems.push({ ...Items[action.item], id: uuid() })
+      }
+      console.log(newItems)
 
       return {
         ...inventory,

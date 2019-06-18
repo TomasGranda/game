@@ -4,12 +4,15 @@ import MainView from '../MainView/MainView';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import Menu from '../Menu/Menu';
 import SideMenu from '../SideMenu/SideMenu';
+import AdminTools from '../AdminTools/AdminTools';
 
 export default function Content() {
   return (
     <Container>
       <Row>
-        <Col xs={1} />
+        <Col xs={1}>
+          <AdminTools />
+        </Col>
         <Col xs={10}>
           <Card>
             <Card.Body>
