@@ -40,14 +40,14 @@ export const worldReducer = ({ worldState }, action) => {
 
       newWorld = newWorld.map((x) => x.map((y) => {
         if (y.items) {
-          let i = y.items.find(element => element.id === action.itemId);
+          let i = y.items.find(element => element.id === action.item.id);
           if (i) {
             y.items = y.items.filter( item => item.id !== i.id);
           }
         }
         return y;
       }));
-
+      
       return {
         ...worldState,
         world: newWorld,

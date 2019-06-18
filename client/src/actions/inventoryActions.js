@@ -7,7 +7,7 @@ class InventoryActionHandler {
     this.dispath = dispath;
   }
 
-  createItem = (item) => {
+  createItem = (item, position) => {
     this.dispath({
       type: types.CREATE_INVENTORY_ITEM,
       item: item,

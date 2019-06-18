@@ -10,7 +10,7 @@ class CombinedActionHandler {
 
   pickUpItem = (item, position) => {
     this.worldActionHandler.deleteItem(item, position);
-    this.inventoryActionHandler.createItem();
+    this.inventoryActionHandler.createItem(item);
   };
 
   dropItem = (item, position) => {
