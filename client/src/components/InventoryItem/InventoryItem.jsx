@@ -3,34 +3,21 @@ import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as Icons from '@fortawesome/free-solid-svg-icons';
 import { Menu, Item, MenuProvider, theme } from 'react-contexify';
-import { useStateValue } from '../../state'
+import { useStateValue } from '../StateProvider/StateProvider'
 import './InventoryItem.css'
-import * as types from '../../actionTypes'
+import InventoryActionHandler from '../../actions/inventoryActions';
+import CombinedActionHandler from '../../actions/combinedActions';
 
-export default function InventoryItem(props) {
+export default function InventoryItem({ house , index, preview, menuId }) {
+  const [{ inventory: { houseItems, items }, worldState: { playerPosition } }, dispath] = useStateValue();
+  const isOnHouse = house;
 
-  const [{ houseItems, items }, dispath] = useStateValue();
-  const { house, index, preview, menuId } = props;
+  const inventoryActionHandler = new InventoryActionHandler(dispath);
+  const combinedActionHandler = new CombinedActionHandler(dispath);
 
-  const item = house ? houseItems[index] : items[index];
+  const item = isOnHouse ? houseItems[index] : items[index];
 
   const itemId = item && item.id ? item.id : null;
-
-  const changeLocation = (itemId) => {
-    dispath({
-      type: types.CHANGE_ITEM_LOCATION,
-      itemId: itemId,
-      inHouse: house,
-    });
-  };
-
-  const dropItem = (itemId) => {
-    dispath({
-      type: types.DROP_ITEM,
-      itemId: itemId,
-      inHouse: false,
-    });
-  };
 
   return (
     itemId ?
@@ -46,8 +33,8 @@ export default function InventoryItem(props) {
         </MenuProvider>
         <Menu id={menuId} theme={theme.dark}>
           {preview
-            ? <Item onClick={() => dropItem(itemId)}>Drop Item</Item>
-            : <Item onClick={() => changeLocation(itemId)}>{house ? "Change to Inventory" : "Change to House"}</Item>
+            ? <Item onClick={() => combinedActionHandler.dropItem(item, playerPosition)}>Drop Item</Item>
+            : <Item onClick={() => inventoryActionHandler.changeLocation(itemId, isOnHouse)}>{isOnHouse ? "Change to Inventory" : "Change to House"}</Item>
           }
         </Menu>
       </div>

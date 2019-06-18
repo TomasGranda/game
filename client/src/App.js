@@ -1,5 +1,6 @@
 import React from 'react';
-import { StateProvider, initialState, reducer } from './state';
+import { initialState, combineReducers } from './state';
+import StateProvider from './components/StateProvider/StateProvider'
 
 import Content from './components/Content/Content';
 
@@ -7,7 +8,7 @@ import './App.css';
 
 const App = () => {
   return (
-    <StateProvider initialState={initialState} reducer={reducer}>
+    <StateProvider initialState={initialState} reducer={combineReducers}>
       <div className="App">
         <Content />
       </div>

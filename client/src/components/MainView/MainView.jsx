@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card } from 'react-bootstrap';
-import { useStateValue } from "../../state";
+import { useStateValue } from "../StateProvider/StateProvider";
 import Sections from '../../config/sections';
 
 
@@ -9,7 +9,7 @@ import HouseView from '../HouseView/HouseView';
 import WorldView from '../WorldView/WorldView';
 
 export default function MainView() {
-    const [{ section }] = useStateValue();
+    const [{ sections: { section } }] = useStateValue();
 
     switch (section) {
         case Sections.Home:

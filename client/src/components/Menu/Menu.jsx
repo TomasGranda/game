@@ -22,7 +22,7 @@ export default function Menu() {
                     </NavDropdown>
                 </Nav>
                 <Navbar.Text>
-                    <Inventory preview/>
+                    <Inventory preview />
                 </Navbar.Text>
             </Navbar.Collapse>
         </Navbar>
