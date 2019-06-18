@@ -7,6 +7,13 @@ class InventoryActionHandler {
     this.dispath = dispath;
   }
 
+  createItem = (item) => {
+    this.dispath({
+      type: types.CREATE_INVENTORY_ITEM,
+      item: item,
+    })
+  }
+
   deleteItem = (itemId) => {
     this.dispath({
       type: types.DELETE_ITEM,

@@ -1,6 +1,7 @@
 import * as types from '../actions/types';
 import uuid from 'uuid';
 import Items from '../config/items';
+import { deepCloneArray } from '../utils/deepCloneArray';
 
 export const initialState = {
   items: [{ ...Items.Arrow, id: uuid() }, { ...Items.Coffee, id: uuid() }],
@@ -8,7 +9,7 @@ export const initialState = {
 }
 
 export const inventoryReducer = ({ inventory, worldState: { playerPosition, world } }, action) => {
-  let newHouseItems, newItems, item, newWorld;
+  let newHouseItems, newItems, item;
   switch (action.type) {
     case types.DELETE_ITEM:
       return {
@@ -16,8 +17,8 @@ export const inventoryReducer = ({ inventory, worldState: { playerPosition, worl
         items: inventory.items.filter(x => x.id !== action.itemId),
       }
     case types.CHANGE_ITEM_LOCATION:
-      newHouseItems = [...inventory.houseItems];
-      newItems = [...inventory.items];
+      newHouseItems = deepCloneArray(inventory.houseItems);
+      newItems = deepCloneArray(inventory.items);
 
       if (action.inHouse) {
         item = inventory.houseItems.find((x) => x.id === action.itemId);
@@ -35,27 +36,23 @@ export const inventoryReducer = ({ inventory, worldState: { playerPosition, worl
         items: newItems,
       }
     case types.PICKUP_ITEM:
-      newItems = [...inventory.items];
-      newWorld = [...world];
-
-      newWorld = newWorld.map((x) => x.map((y) => {
-        if (y.items) {
-          let i = y.items.find(element => element.id === action.itemId);
-          if (i) {
-            item = i;
-            y.items.splice(y.items.indexOf(i), 1);
-          }
-        }
-        return y;
-      }));
+      newItems = deepCloneArray(inventory.items);
 
       newItems.push(item);
 
       return {
         ...inventory,
         items: newItems,
-        // world: newWorld,
       }
+    case types.CREATE_INVENTORY_ITEM:
+      newItems = deepCloneArray(inventory.items);
+
+      newItems.push(action.item);
+
+      return {
+        ...inventory,
+        items: newItems,
+      };
     default:
       return inventory;
   }

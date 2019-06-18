@@ -2,25 +2,22 @@ import WorldActionHandler from './worldActions';
 import InventoryActionHandler from './inventoryActions';
 
 class CombinedActionHandler {
-  dispath;
-  inventoryActionHandler;
-  worldActionHandler;
-
-  constructor(dispath){
+  constructor(dispath) {
     this.dispath = dispath;
     this.worldActionHandler = new WorldActionHandler(dispath);
     this.inventoryActionHandler = new InventoryActionHandler(dispath);
   }
 
-  pickUpItem = (itemId, position) => {
-
+  pickUpItem = (item, position) => {
+    this.worldActionHandler.deleteItem(item, position);
+    this.inventoryActionHandler.createItem();
   };
-  
+
   dropItem = (item, position) => {
     this.inventoryActionHandler.deleteItem(item.id);
-    this.worldActionHandler.putItem(item, position)
+    this.worldActionHandler.createItem(item, position);
   };
-  
+
 }
 
 export default CombinedActionHandler;

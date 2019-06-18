@@ -1,25 +1,31 @@
 import * as types from './types';
 
 class WorldActionHandler {
-  dispath;
-
-  constructor(dispath){
+  constructor(dispath) {
     this.dispath = dispath;
   }
+
+  deleteItem(item, position) {
+    this.dispath({
+      type: types.DELETE_WORLD_ITEM,
+      item: item,
+      position: position,
+    });
+  }
+
+  createItem = (item, position) => {
+    this.dispath({
+      type: types.CREATE_WORLD_ITEM,
+      item: item,
+      position: position,
+    });
+  };
 
   createBuild = (build, position) => {
     this.dispath({
       type: types.CREATE_BUILD,
       position: position,
       build: build
-    })
-  };
-
-  putItem = (item, position) => {
-    this.dispath({
-      type: types.PUT_ITEM,
-      position: position,
-      item: item,
     })
   };
 

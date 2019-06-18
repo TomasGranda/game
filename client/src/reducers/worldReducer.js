@@ -2,6 +2,7 @@ import * as types from '../actions/types';
 import createWorld from '../utils/createWorld';
 import uuid from 'uuid';
 import Entities from '../config/entities';
+import { deepCloneArray } from '../utils/deepCloneArray';
 
 export const initialState = {
   playerId: "playerId",
@@ -12,8 +13,8 @@ export const initialState = {
 export const worldReducer = ({ worldState }, action) => {
   let newWorld;
   switch (action.type) {
-    case types.PUT_ITEM:
-      newWorld = [...worldState.world];
+    case types.CREATE_WORLD_ITEM:
+      newWorld = deepCloneArray(worldState.world);
 
       newWorld[action.position[0]][action.position[1]].items.push(action.item);
 
@@ -22,13 +23,30 @@ export const worldReducer = ({ worldState }, action) => {
         world: newWorld,
       }
     case types.CREATE_BUILD:
-      newWorld = [...worldState.world];
+      newWorld = deepCloneArray(worldState.world);
 
       newWorld[action.position[0]][action.position[1]].builds.push({
         icon: action.build.icon,
         id: uuid(),
         name: action.build.name
       });
+
+      return {
+        ...worldState,
+        world: newWorld,
+      }
+    case types.DELETE_WORLD_ITEM:
+      newWorld = deepCloneArray(worldState.world);
+
+      newWorld = newWorld.map((x) => x.map((y) => {
+        if (y.items) {
+          let i = y.items.find(element => element.id === action.itemId);
+          if (i) {
+            y.items = y.items.filter( item => item.id !== i.id);
+          }
+        }
+        return y;
+      }));
 
       return {
         ...worldState,

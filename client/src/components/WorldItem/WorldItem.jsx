@@ -6,23 +6,16 @@ import { MenuProvider, Menu, theme, Item } from 'react-contexify';
 import uuid from "uuid";
 import { useStateValue } from "../StateProvider/StateProvider";
 import comparePositions from '../../utils/comparePositions';
-import * as types from '../../actions/types'
 import getPositionById from '../../utils/getPositionById';
+import CombinedActionHandler from '../../actions/combinedActions';
 
-export default function WorldItem(props) {
-  const [{ worldState: { playerPosition, world } }, dispath] = useStateValue();
-
-  const { item } = props;
+export default function WorldItem({ item }) {
+  const [{ worldState: { playerPosition, world } }, dispatch] = useStateValue();
 
   const id = item && item.id ? item.id : uuid();
   const itemPosition = getPositionById(world, id);
 
-  const pickUpItem = (itemId) => {
-    dispath({
-      type: types.PICKUP_ITEM,
-      itemId: itemId,
-    });
-  };
+  const combinedActionHandler = new CombinedActionHandler(dispatch);
 
   return (
     <div className="gridItem">
@@ -32,7 +25,7 @@ export default function WorldItem(props) {
         </span>
       </MenuProvider>
       <Menu id={id} theme={theme.dark}>
-        <Item disabled={!comparePositions(playerPosition, itemPosition)} onClick={() => pickUpItem(id)}>Pick up</Item>
+        <Item disabled={!comparePositions(playerPosition, itemPosition)} onClick={() => combinedActionHandler.pickUpItem(item, itemPosition)}>Pick up</Item>
       </Menu>
     </div>
   )
