@@ -3,7 +3,7 @@ import createWorld from '../utils/createWorld';
 import uuid from 'uuid';
 import Entities from '../config/entities';
 import { deepCloneArray } from '../utils/deepCloneArray';
-import getHasMaterials from '../utils/getHasMaterials';
+import { getHasMaterials } from '../utils/validations';
 
 export const initialState = {
   playerId: "playerId",
