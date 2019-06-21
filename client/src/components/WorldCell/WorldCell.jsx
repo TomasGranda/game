@@ -5,14 +5,12 @@ import './WorldCell.css';
 import uuid from 'uuid';
 import { useStateValue } from '../StateProvider/StateProvider';
 import { MenuProvider, Menu, Item, theme } from 'react-contexify';
-import getAllowMove from '../../utils/getAllowMove';
 import WorldItem from '../WorldItem/WorldItem';
 import WorldEntity from '../WorldEntity/WorldEntity';
-import comparePositions from '../../utils/comparePositions';
 import Builds from '../../config/builds';
 import WorldBuild from '../WorldBuild/WorldBuild';
 import WorldActionHandler from '../../actions/worldActions';
-import getHasMaterials from '../../utils/getHasMaterials';
+import { getHasMaterials, comparePositions, getAllowMove } from '../../utils/validations';
 
 export default function WorldCell({ position }) {
   const [{ worldState: { playerPosition, world }, inventory: { items } }, dispath] = useStateValue();

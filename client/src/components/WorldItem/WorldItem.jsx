@@ -5,7 +5,7 @@ import './WorldItem.css';
 import { MenuProvider, Menu, theme, Item } from 'react-contexify';
 import uuid from "uuid";
 import { useStateValue } from "../StateProvider/StateProvider";
-import comparePositions from '../../utils/comparePositions';
+import { comparePositions } from '../../utils/validations';
 import getPositionById from '../../utils/getPositionById';
 import CombinedActionHandler from '../../actions/combinedActions';
 
