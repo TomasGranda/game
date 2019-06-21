@@ -51,7 +51,7 @@ export const inventoryReducer = ({ inventory }, action) => {
       if (action.item.id) {
         newItems.push(action.item);
       } else {
-        newItems.push({ ...Items[action.item], id: uuid() })
+        newItems.push({ ...Items[action.item], id: uuid() });
       }
       console.log(newItems)
 
