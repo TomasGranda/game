@@ -3,6 +3,7 @@ import createWorld from '../utils/createWorld';
 import uuid from 'uuid';
 import Entities from '../config/entities';
 import { deepCloneArray } from '../utils/deepCloneArray';
+import getHasMaterials from '../utils/getHasMaterials';
 
 export const initialState = {
   playerId: "playerId",
@@ -10,7 +11,7 @@ export const initialState = {
   playerPosition: [1, 1],
 }
 
-export const worldReducer = ({ worldState }, action) => {
+export const worldReducer = ({ inventory, worldState }, action) => {
   let newWorld;
   switch (action.type) {
     case types.CREATE_WORLD_ITEM:
@@ -24,12 +25,15 @@ export const worldReducer = ({ worldState }, action) => {
       }
     case types.CREATE_BUILD:
       newWorld = deepCloneArray(worldState.world);
+      const hasMaterials = getHasMaterials(action.build.materials, inventory.items)
 
-      newWorld[action.position[0]][action.position[1]].builds.push({
-        icon: action.build.icon,
-        id: uuid(),
-        name: action.build.name
-      });
+      if (hasMaterials) {
+        newWorld[action.position[0]][action.position[1]].builds.push({
+          icon: action.build.icon,
+          id: uuid(),
+          name: action.build.name
+        });
+      }
 
       return {
         ...worldState,
@@ -42,12 +46,12 @@ export const worldReducer = ({ worldState }, action) => {
         if (y.items) {
           let i = y.items.find(element => element.id === action.item.id);
           if (i) {
-            y.items = y.items.filter( item => item.id !== i.id);
+            y.items = y.items.filter(item => item.id !== i.id);
           }
         }
         return y;
       }));
-      
+
       return {
         ...worldState,
         world: newWorld,

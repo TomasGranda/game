@@ -12,15 +12,16 @@ import comparePositions from '../../utils/comparePositions';
 import Builds from '../../config/builds';
 import WorldBuild from '../WorldBuild/WorldBuild';
 import WorldActionHandler from '../../actions/worldActions';
+import getHasMaterials from '../../utils/getHasMaterials';
 
 export default function WorldCell({ position }) {
-  const [{ worldState: { playerPosition, world } }, dispath] = useStateValue();
+  const [{ worldState: { playerPosition, world }, inventory: { items } }, dispath] = useStateValue();
 
   const worldActionHandler = new WorldActionHandler(dispath);
 
   const worldCell = world[position[0]] ? world[position[0]][position[1]] : "";
 
-  const items = worldCell && worldCell.items ? worldCell.items : [];
+  const worldItems = worldCell && worldCell.items ? worldCell.items : [];
   const entities = worldCell && worldCell.entities ? worldCell.entities : [];
   const builds = worldCell && worldCell.builds ? worldCell.builds : [];
   
@@ -41,7 +42,7 @@ export default function WorldCell({ position }) {
           <p>({position[0]},{position[1]})</p>
           {borderCell ? "" :
           <Card.Body className="gridCard">
-            {items ? items.map((item) =>
+            {worldItems ? worldItems.map((item) =>
               <WorldItem key={uuid()} item={item} />
             ) : ""}
             {entities ? entities.map((entity) =>
@@ -57,7 +58,7 @@ export default function WorldCell({ position }) {
       <Menu theme={theme.dark} id={id}>
         <Item disabled={!getAllowMove(playerPosition, position) || borderCell} onClick={movePlayer}>Move to this Cell</Item>
         <Item disabled={!comparePositions(playerPosition, position)} onClick={() => worldActionHandler.createBuild(Builds.House, position)}>Create House</Item>
-        <Item disabled={!comparePositions(playerPosition, position)} onClick={() => worldActionHandler.createBuild(Builds.Camp, position)}>Camp</Item>
+        <Item disabled={!comparePositions(playerPosition, position) || !getHasMaterials(Builds.Camp.materials, items) } onClick={() => worldActionHandler.createBuild(Builds.Camp, position)}>Camp</Item>
       </Menu>
     </div>
   )
